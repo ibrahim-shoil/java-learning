@@ -3,7 +3,7 @@ package com.expensetracker;
 import com.expensetracker.model.Expense;
 import com.expensetracker.service.ExpenseService;
 import java.time.LocalDate;
-import java.util.Scanner;//test
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -51,7 +51,11 @@ public class Main {
 
                 case 2 -> service.getAllExpenses().forEach(System.out::println);
                 case 3 -> System.out.println("Total: " + service.getTotal());
-                case 4 -> System.exit(0);
+                case 4 ->  {
+                    service.saveToFile();
+                    System.exit(0);
+
+                }
                 default -> System.out.println("Invalid choice."); //comment
             }
         }
