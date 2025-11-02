@@ -48,9 +48,9 @@ public class ExpenseService {
     public void saveToFile(){
         try (PrintWriter writer = new PrintWriter("expenses.csv")){
             for (Expense expense: expenses){
-                String line = expense.getAmount() + ";" +
-                        expense.getCategory() + "\"" +
-                        expense.getDescription() + "\"" + ";" +
+                String line = expense.getAmount() + "," +
+                        expense.getCategory() + ","+
+                        expense.getDescription() + "," +
                         expense.getDate();
                 writer.println(line);
             }
@@ -68,7 +68,7 @@ public class ExpenseService {
                 Scanner scanner = new Scanner(new File("expenses.csv"));
                 while (scanner.hasNextLine()){
                     String line = scanner.nextLine();
-                    String[] parts = line.split(";");
+                    String[] parts = line.split(",");
                     double amount = Double.parseDouble(parts[0]);
                     String category = parts[1];
                     String description = parts[2];
