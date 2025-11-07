@@ -64,8 +64,14 @@ public class ExpenseService {
         }
     }
     public void loadFromFile() {
-            try {
-                Scanner scanner = new Scanner(new File("expenses.csv"));
+        File file = new File("expenses.csv");
+
+        if (!file.exists()){
+            return;
+        }
+
+        try {
+                Scanner scanner = new Scanner(file);
                 while (scanner.hasNextLine()){
                     String line = scanner.nextLine();
                     String[] parts = line.split(",");

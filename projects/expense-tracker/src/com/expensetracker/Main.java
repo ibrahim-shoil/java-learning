@@ -49,7 +49,14 @@ public class Main {
                     System.out.println("Expense added under '" + category + "'.");
                 }
 
-                case 2 -> service.getAllExpenses().forEach(System.out::println);
+                case 2 -> {
+                        if (service.getAllExpenses().isEmpty()){
+                            System.out.println("No Items Were added.");
+                        }
+                        else {
+                            service.getAllExpenses().forEach(System.out::println);
+                        }
+                }
                 case 3 -> System.out.println("Total: " + service.getTotal());
                 case 4 ->  {
                     service.saveToFile();
