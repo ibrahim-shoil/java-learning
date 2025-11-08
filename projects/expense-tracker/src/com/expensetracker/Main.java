@@ -11,7 +11,7 @@ public class Main {
         ExpenseService service = new ExpenseService();
 
         while (true) {
-            System.out.println("\n1. Add Expense\n2. View All\n3. Total\n4. Exit");
+            System.out.println("\n1. Add Expense\n2. View All\n3. Total\n4. Delete \n5. Exit");
             System.out.print("Choose: ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -58,7 +58,33 @@ public class Main {
                         }
                 }
                 case 3 -> System.out.println("Total: " + service.getTotal());
-                case 4 ->  {
+                case 4 -> {
+                    if (service.getAllExpenses().isEmpty()){
+                        System.out.println("No Expenses Were added.");
+                    } else {
+                        for (int i = 0; i < service.getAllExpenses().size(); i++) {
+                            System.out.println((i+1)+ ". " + service.getAllExpenses().get(i));
+                        }
+                        boolean deleted = false;
+                        while (!deleted){
+                            System.out.print("Enter Expense number to delete: ");
+                            int number = sc.nextInt();
+                            int index = number - 1;
+                            sc.nextLine();
+                        try {
+                            service.deleteExpense(index);
+                            deleted = true;
+                        } catch (Exception e) {
+                                System.out.println("enter a valid number between 1 and less than " + (service.getAllExpenses().size() + 1));
+                                sc.nextLine();
+                        }
+                    }
+                        System.out.println("successfully deleted.");
+
+                    }
+
+                }
+                case 5 ->  {
                     service.saveToFile();
                     System.exit(0);
 

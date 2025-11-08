@@ -45,6 +45,10 @@ public class ExpenseService {
         categories.add(new Category(newCategory));
     }
 
+    public List<Expense> getExpenses(){
+        return expenses;
+    }
+
     public void saveToFile(){
         try (PrintWriter writer = new PrintWriter("expenses.csv")){
             for (Expense expense: expenses){
@@ -91,6 +95,11 @@ public class ExpenseService {
             }
     }
 
+    public void deleteExpense(int index){
+        expenses.remove(index);
+
+
+    }
 
 
 }
