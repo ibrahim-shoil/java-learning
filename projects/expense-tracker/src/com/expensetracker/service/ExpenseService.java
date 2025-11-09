@@ -55,7 +55,8 @@ public class ExpenseService {
                 String line = expense.getAmount() + "," +
                         expense.getCategory() + ","+
                         expense.getDescription() + "," +
-                        expense.getDate();
+                        expense.getDate()+ "," +
+                        expense.getLastEditedDate();
                 writer.println(line);
             }
             System.out.println("csv file created successfully...");
@@ -83,10 +84,9 @@ public class ExpenseService {
                     String category = parts[1];
                     String description = parts[2];
                     LocalDate date = LocalDate.parse(parts[3]);
-                    Expense e = new Expense(amount, category, description, date);
+                    LocalDate lastEditedDate = LocalDate.parse(parts[4]);
+                    Expense e = new Expense(amount, category, description, date, lastEditedDate);
                     expenses.add(e);
-
-
                 }
                 scanner.close();
             } catch (Exception e) {
@@ -97,9 +97,18 @@ public class ExpenseService {
 
     public void deleteExpense(int index){
         expenses.remove(index);
-
-
     }
-
+    public void editAmount(int index, double newAmount){
+        expenses.get(index).setAmount(newAmount);
+        expenses.get(index).setLastEditedDate(LocalDate.now());
+    }
+    public void editCategory(int index, String newCategory){
+        expenses.get(index).setCategory(newCategory);
+        expenses.get(index).setLastEditedDate(LocalDate.now());
+    }
+    public void editDescription(int index, String newDescription){
+        expenses.get(index).setDescription(newDescription);
+        expenses.get(index).setLastEditedDate(LocalDate.now());
+    }
 
 }

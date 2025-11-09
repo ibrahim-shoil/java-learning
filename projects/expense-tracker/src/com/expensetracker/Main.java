@@ -11,7 +11,7 @@ public class Main {
         ExpenseService service = new ExpenseService();
 
         while (true) {
-            System.out.println("\n1. Add Expense\n2. View All\n3. Total\n4. Delete \n5. Exit");
+            System.out.println("\n1. Add Expense\n2. View All\n3. Total\n4. Delete \n5. Edit Expense \n6. Exit");
             System.out.print("Choose: ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -84,7 +84,54 @@ public class Main {
                     }
 
                 }
-                case 5 ->  {
+                case 5 -> {
+                    if (service.getAllExpenses().isEmpty()){
+                        System.out.println("No Expenses Were added.");
+                    } else{
+                        for (int i = 0; i < service.getAllExpenses().size(); i++) {
+                            System.out.println((i+1)+ ". " + service.getAllExpenses().get(i));
+                        }
+                        boolean edited = false;
+                        while (!edited){
+                            System.out.print("Enter Expense number to Edit: ");
+                            int number = sc.nextInt();
+                            int indexForExpenseNumberToEdit = number - 1;
+                            System.out.println("what to edit ? 1=Amount, 2=Category, 3=Description");
+                            int indexForWhatToEdit = sc.nextInt();
+                            sc.nextLine();
+                            try {
+                                switch (indexForWhatToEdit){
+                                    case 1 -> {
+                                        System.out.println("Enter the new amount");
+                                        double newValue = sc.nextDouble();
+                                        service.editAmount(indexForExpenseNumberToEdit, newValue);
+                                    }
+                                    case 2 -> {
+                                        System.out.println("Enter the new category");
+                                        String newValue = sc.nextLine();
+                                        service.editCategory(indexForExpenseNumberToEdit, newValue);
+                                    }
+                                    case 3 -> {
+                                        System.out.println("Enter the new Description");
+                                        String newValue = sc.nextLine();
+                                        service.editDescription(indexForExpenseNumberToEdit, newValue);
+                                    }
+                                }
+                                edited = true;
+
+                            } catch (Exception e){
+
+
+                            }
+                        }
+                        System.out.println("successfully Edited.");
+
+
+                    }
+
+
+                }
+                case 6 ->  {
                     service.saveToFile();
                     System.exit(0);
 
